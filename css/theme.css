@@ -117,6 +117,10 @@ header {
 	top:3px;
 }
 
+.peeps {
+	margin-bottom: 8rem;
+}
+
 .peep {
 	height: 200px;
 	padding: 0px;
@@ -135,8 +139,16 @@ header {
 .pete img { max-height: 220px; height: 220px; }
 .christopher img { max-height: 215px; height:215px; }
 
+.jon.shadow.peep,
+.brad.shadow.peep {
+    position: absolute;
+    width: 50%;
+}
+.jon.shadow.peep { right: 0; }
+.brad.shadow.peep { left: 0; }
+
 .footer {
-	position: absolute;
+    position: absolute;
     left: 0;
     bottom: 0;
     height: 50px;
@@ -186,7 +198,20 @@ header {
 
 	.buy {
 		margin-bottom: 5rem;
+		bottom: 0;
 	}
+
+	.peeps {
+		margin-bottom: 0;
+	}
+
+	.jon.shadow.peep,
+	.brad.shadow.peep {
+		position: relative;
+		width: inherit;
+	}
+	.jon.shadow.peep { right: inherit; }
+	.brad.shadow.peep { left: inherit; }
 
 	.footer * {
 		font-size: 18px;
