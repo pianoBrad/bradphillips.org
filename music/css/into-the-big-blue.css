@@ -1,0 +1,321 @@
+/*************************************
+			FONTS CSS
+*************************************/
+
+@font-face {
+    font-family: 'BebasRegular';
+    src: url('../fonts/bebas/BEBAS___-webfont.eot');
+    src: url('../fonts/bebas/BEBAS___-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bebas/BEBAS___-webfont.woff') format('woff'),
+         url('../fonts/bebas/BEBAS___-webfont.ttf') format('truetype'),
+         url('../fonts/bebas/BEBAS___-webfont.svg#BebasRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+/*************************************
+			CONTAINER STYLES
+*************************************/
+
+html, body { background-color: #71d8e1; }
+
+body {
+	z-index: -1000;
+	background-image: url('../img/sunset-background.png');
+	background-position: 0px -1200px;
+}
+
+
+/*************************************
+			HEADER CSS
+*************************************/
+
+h1 {
+	font-family: 'BebasRegular';
+	font-weight: normal;
+	font-size: 80px;
+	line-height: 80px;
+	position: relative;
+	margin-top: 0px;
+}
+
+ul.tag { list-style: none; margin-top: 3px; }
+
+.header > a { 
+	display: block; 
+	overflow: auto; 
+	position: relative;
+}
+
+.header ul { list-style: none; }
+
+h1.logo {
+	color: #73b9a6;
+	margin: 10px 23px 25px 0;
+	float: left;
+}
+
+h1.logo:before {
+	bottom: -4px;
+	content: attr(data-shadow);
+	left: -4px;
+	position: absolute;
+	z-index: -1;
+}
+
+h1.logo:before, .header ul.tag h5 { color: #695C17; }
+
+.header ul.tag {
+	position: relative;
+	float: left;
+	margin-top: 15px;
+}
+
+ul.tag, ul.tag h5 {
+	font-family: 'BebasRegular';
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 18px;
+}
+
+.top-nav { 
+	font-family: 'Pacifico', cursive;
+	font-size: 30px;
+	clear: both;
+	margin: 0px auto;
+}
+
+.top-nav a { color: #b0ac45; }
+
+.sun, .stars { 
+	display: block; 
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-image: url('../img/sun.png');
+	background-position: center top;
+	z-index: -999;
+	background-repeat: repeat-y;
+}
+.stars {
+	background-image: url('../img/stars.png');
+	background-repeat: repeat-x;
+}
+
+
+
+/*************************************
+			MAIN CONTENT CSS
+*************************************/
+
+.scheme-green * { color: #73b9a6; }
+.scheme-green a { color: #B0AC45; }
+
+.section-2 { position: relative; z-index: 1000; }
+.section-2 .wave-top { }
+
+.section-3 { margin-top: -75px; padding-top: 75px; }
+
+.showcase { margin: 0px auto; }
+.showcase iframe {
+	display: block;
+	margin: 0px auto;
+	padding: 10px;
+	background-color: #5E9A8A;
+	background-image: url('../img/wave-texture-330px-green.png');
+}
+
+.showcase-spacer {
+	width: 100%;
+}
+
+.showcase-info {
+	margin: 0px auto;
+}
+
+.showcase-info > * {
+	width: 50%;
+	position: relative;
+	float: right;
+	clear: both;
+	padding-left: 15px;
+}
+
+.showcase-info * {
+	list-style: none;
+	font-family: 'BebasRegular';
+}
+
+.showcase-wrap {
+	position: fixed;
+	width: 100%;
+}
+
+.showcase iframe { padding-top: 10px; }
+
+.wave.background { 
+	height: auto; 
+	width: 100%; 
+	margin-bottom: -75px;
+}
+.wave-top {
+	width: 100%;
+	height: 75px;
+}
+.wave-top.light { background-image: url('../img/wave-tile-lightgreen.png'); }
+.wave-top.med { background-image: url('../img/wave-tile.png'); }
+.wave-top.dark { background-image: url('../img/wave-tile-darkgreen-negative.png'); }
+.wave-top.reverse { position: relative; z-index: 2000; }
+.wave.background .wave-body.light {
+	height: 75px;
+	background-image: url('../img/wave-texture-330px-lightgreen.png');
+}
+.wave .wave-body.med { 
+	overflow: auto;
+	background-image: url('../img/wave-texture-330px-darkgreen.png');
+	color: #73b9a6;
+}
+.wave-body.dark {
+	background-image: url('../img/wave-texture-330px-darkestgreen.png');
+}
+
+.wave .wave-body.med h1, .wave .wave-body.med h5 { color: #73b9a6; }
+
+.verses { 
+	font-family: 'Pompiere', cursive; 
+	font-size: 30px;
+}
+.verses .verse,
+.verses .chorus { 
+	clear: both; 
+	margin-left: 2.5em;
+}
+.verses ul { list-style: none; }
+
+
+
+/*************************************
+			MAIN CONTENT CSS
+*************************************/
+
+.footer-wrap { background-color: black; }
+.footer { 
+	background-color: black;
+	position: relative;
+	z-index: 3000;
+	color: #73b9a6;
+	padding-top: 50px;
+}
+
+.footer .contact h1, .footer .contact ul.tag,
+.footer .contact ul.tag h5 { 
+	color: #B0AC45;
+	margin-bottom: 0px; 
+}
+.footer .contact { overflow: auto; padding-bottom: 15px; }
+.footer ul.tag { margin-left: 15px; }
+
+
+/*************************************
+			MEDIA QUERIES
+*************************************/
+
+/*
+* Author: http://stuffandnonsense.co.uk/blog/about/hardboiled_css3_media_queries/
+*/
+ 
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+/* Styles */
+}
+ 
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+/* Styles */
+}
+ 
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+/* Styles */
+}
+
+/* 768px (Custom) ----------- */
+@media only screen
+and (min-device-width : 768px) {
+	.header a, .top-nav, .verses.row,
+	.showcase-info {  width: 700px; }
+	
+	.header h1.logo { margin-right: 0px; }
+	.header a { margin: 0px auto; }
+	.header ul.tag { float: right; }
+	
+	.showcase-spacer {
+		height: 450px;
+	}
+	
+	.section-3 .showcase-spacer {
+		height: 300px;
+	}
+	
+	.showcase {
+		width: 700px;
+		height: 393.5px;
+	}
+	
+	.showcase iframe {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.footer {
+		width: 700px;
+	}
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+/* Styles */
+}
+ 
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+/* Styles */
+}
+ 
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+/* Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width : 1224px) {
+/* Styles */
+}
+ 
+/* Large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+/* Styles */
+}
+ 
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+/* Styles */
+}

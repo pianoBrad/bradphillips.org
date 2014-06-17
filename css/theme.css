@@ -1,0 +1,201 @@
+/************** TO-DO *******************
+
+	convert the multi-background images
+	into a single file & just change 
+	position, rather than swapping entire
+	images for animation!
+
+****************************************/
+
+
+html {
+	position: relative;
+	min-height: 100%;
+	background-color: #1e1e1e;
+}
+
+body {
+	background-color: transparent;
+	margin: 0px 0px 100px 0px;
+}
+
+a:hover {
+	color: #6adfff;
+	text-decoration: none;
+}
+
+@font-face {
+    font-family: 'edunline';
+    src: url('../fonts/edunline/edunline-webfont.eot');
+    src: url('../fonts/edunline/edunline-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/edunline/edunline-webfont.woff') format('woff'),
+         url('../fonts/edunline/edunline-webfont.ttf') format('truetype'),
+         url('../fonts/edunline/edunline-webfont.svg#edit_undo_line_brkregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'feltregular';
+    src: url('../fonts/marker/marker_felt-webfont.eot');
+    src: url('../fonts/marker/marker_felt-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/marker/marker_felt-webfont.woff') format('woff'),
+         url('../fonts/marker/marker_felt-webfont.ttf') format('truetype'),
+         url('../fonts/marker/marker_felt-webfont.svg#feltregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: '8bitoperatorregular';
+    src: url('../fonts/8bit/8bitoperator-webfont.eot');
+    src: url('../fonts/8bit/8bitoperator-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/8bit/8bitoperator-webfont.woff') format('woff'),
+         url('../fonts/8bit/8bitoperator-webfont.ttf') format('truetype'),
+         url('../fonts/8bit/8bitoperator-webfont.svg#8bitoperatorregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/********************************************************
+		MAIN CONTENT STYLES
+********************************************************/
+
+header {
+	position: relative;
+	display: block;
+	overflow: auto;
+	margin-bottom: 8rem;
+}
+
+.logo {
+	color: white;
+	font-family: 'edunline';
+	font-size: 30px;
+	margin: 0px;
+}
+
+.marker {
+	font-family: 'feltregular';
+}
+
+.pixel-text {
+	font-family: '8bitoperatorregular';
+}
+
+.content.container {
+	width: 100%;
+}
+
+.buy {
+	margin-bottom: 0;
+}
+
+.buy > * {
+	margin: 0px;
+}
+
+.paypal {
+	font-size: 30px;
+	background-color: #00D090;
+    border-radius: 1rem;
+    box-shadow: 0 3px 0 #009B67;
+    font-size: 30px;
+    padding: 0 1rem;
+    color: #FFFFFF;
+    text-shadow: 0 1px 1px #1E1E1E;
+    position: relative;
+}
+
+.paypal:hover {
+	color: #FFFFFF;
+	text-shadow: 0 -1px 1px #1E1E1E;
+	box-shadow: 0 0 0 #009B67;
+	top:3px;
+}
+
+.peep {
+	height: 200px;
+	padding: 0px;
+	vertical-align: bottom;
+}
+
+.peep img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.peep.shadow { vertical-align: top; }
+
+.brad img { max-height: 200px; height: 200px; }
+.jon img { max-height: 190px; height: 190px; }
+.pete img { max-height: 220px; height: 220px; }
+.christopher img { max-height: 215px; height:215px; }
+
+.footer {
+	position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    line-height: 50px;
+    opacity: 0.25;
+}
+
+.footer * {
+	color: #FFFFFF;
+	font-size: 14px;
+}
+
+.footer .music {
+	text-align: right;
+}
+
+
+/********************************************************
+		MEDIA QUERIES
+********************************************************/
+
+@media (min-width: 400px) { 
+	
+}
+
+@media (min-width: 500px) { 
+		
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	header {
+		margin-bottom: 3rem;
+	}
+	.logo {
+		text-align: left;
+		font-size: 40px;
+	}
+
+	.paypal {
+		font-size: 35px;
+	}
+
+	.buy {
+		margin-bottom: 5rem;
+	}
+
+	.footer * {
+		font-size: 18px;
+	}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { }
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { }
+
