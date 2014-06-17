@@ -68,7 +68,7 @@ header {
 	position: relative;
 	display: block;
 	overflow: auto;
-	margin-bottom: 8rem;
+	margin-bottom: 7rem;
 }
 
 .logo {
@@ -118,7 +118,7 @@ header {
 }
 
 .peeps {
-	margin-bottom: 8rem;
+	margin-bottom: 7rem;
 }
 
 .peep {
