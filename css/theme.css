@@ -185,7 +185,7 @@ header {
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 	header {
-		margin-bottom: 3rem;
+		margin-bottom: 6rem;
 	}
 	.logo {
 		text-align: left;
