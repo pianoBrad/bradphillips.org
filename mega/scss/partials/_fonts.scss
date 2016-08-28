@@ -1,0 +1,60 @@
+body {
+	font-size: 62.5%;
+}
+
+
+/****************************
+		WEIGHTS
+****************************/
+
+
+
+/****************************
+		SIZES
+****************************/
+
+
+
+/****************************
+		COLORS
+****************************/
+
+
+/****************************
+		EXTRAS
+****************************/
+
+[class^="dropshadow-"] {
+	&:before {
+		color: rgba(0,0,0,0.15);
+		position: absolute;
+		z-index: -1;
+		top: 0.75rem;
+	}
+}
+.dropshadow-A { &:before { content:"A"; } }
+.dropshadow-B { &:before { content:"B"; } }
+.dropshadow-C { &:before { content:"C"; } }
+.dropshadow-D { &:before { content:"D"; } }
+.dropshadow-E { &:before { content:"E"; } }
+.dropshadow-F { &:before { content:"F"; } }
+.dropshadow-G { &:before { content:"G"; } }
+.dropshadow-H { &:before { content:"H"; } }
+.dropshadow-I { &:before { content:"I"; } }
+.dropshadow-J { &:before { content:"J"; } }
+.dropshadow-K { &:before { content:"K"; } }
+.dropshadow-L { &:before { content:"L"; } }
+.dropshadow-M { &:before { content:"M"; } }
+.dropshadow-N { &:before { content:"N"; } }
+.dropshadow-O { &:before { content:"O"; } }
+.dropshadow-P { &:before { content:"P"; } }
+.dropshadow-Q { &:before { content:"Q"; } }
+.dropshadow-R { &:before { content:"R"; } }
+.dropshadow-S { &:before { content:"S"; } }
+.dropshadow-T { &:before { content:"T"; } }
+.dropshadow-U { &:before { content:"U"; } }
+.dropshadow-V { &:before { content:"V"; } }
+.dropshadow-W { &:before { content:"W"; } }
+.dropshadow-X { &:before { content:"X"; } }
+.dropshadow-Y { &:before { content:"Y"; } }
+.dropshadow-Z { &:before { content:"Z"; } }

@@ -1,0 +1,65 @@
+@mixin alpha-background-color($color, $background) {
+  $percent: alpha($color) * 100%;
+  $opaque: opacify($color, 1);
+  $solid-color: mix($opaque, $background, $percent);
+  background-color: $solid-color;
+  background-color: $color;
+}
+
+@mixin box-shadow($args...) {
+	-webkit-box-shadow: $args;
+    -moz-box-shadow: $args;
+    box-shadow: $args;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin background-gradient-2-colors-lr($a, $b) {
+	background: $a; /* Old browsers */
+	background: -moz-linear-gradient(left,  $a 0%, $b 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  $a 0%,$b 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  $a 0%,$b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$a', endColorstr='$b',GradientType=1 ); /* IE6-9 */
+}
+
+@mixin transition($args...) {
+    -webkit-transition: $args;
+       -moz-transition: $args;
+        -ms-transition: $args;
+         -o-transition: $args;
+            transition: $args;
+}
+
+@mixin transform($args...) {
+	-ms-transform: $args;
+    -webkit-transform: $args;
+    transform: $args;
+}
+
+@mixin smooth-transform {
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
+}
+
+@mixin vertical-center-parent {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+
+    align-items: center;
+}
+
+@mixin display-flex {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}

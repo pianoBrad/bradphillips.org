@@ -1,0 +1,105 @@
+$color-offcanvas-header-background : #018CC1;
+$offcanvas_location_x : -300px;
+
+.csstransforms3d .myaccount-offcanvas {
+	&.active {
+		@include smooth-transform();
+		@include transform(translate3d($offcanvas_location_x, 0px, 0px));
+	}
+}
+
+.myaccount-offcanvas {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    top: 0;
+    right: $offcanvas_location_x;
+	@include smooth-transform();
+	@include transition(transform 0.5s);
+	z-index: 100002;
+    background-color: $color-white;
+    &.active {
+        /** right: 0px; **/
+		@include transform(translate($offcanvas_location_x, 0px));
+	}
+    .offcanvas-header {
+        *, h1, h2, h3, h4, h5, h6, p, ul { color: $color-white; }   
+        background-color: $color-offcanvas-header-background;
+        padding: 35px 30px;
+        .offcanvas-control {
+            margin-bottom: 40px;
+            .icon {
+                display: inline-block;
+                width: 8px;
+                height: 10px;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: auto 100%;
+            }    
+        }
+    }
+    .offcanvas-body {
+        padding: 30px;    
+    }
+
+    nav {
+        list-style: none;
+        li {
+            margin-bottom: 20px;
+            a {
+                font-size: $font-size-body-sm;
+                color: $color-font-primary;
+                font-weight: $weight-medium;
+                &:hover, &:active {
+                    border-bottom: 2px solid $color-link-primary;    
+                    text-decoration: none;
+                    color: $color-black;
+                }
+				.icon-download {
+                    background-image: url("../img/icon-download.svg");
+                    background-size: 100% auto;
+					background-position: center center;
+					width: 12px;
+                    height: 16px;
+                    vertical-align: bottom;
+                    margin-right: 5px;
+					display: inline-block;
+				}
+			}   
+            &.active {
+                a {
+                    color: $color-black;
+                    border-bottom: 2px solid $color-link-primary;    
+				}   
+            }
+        }
+    }
+}
+
+.offcanvas-overlay {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100001;
+    @include transition(visibility 0.5s, opacity 0.5s);
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }    
+}
+
+
+/*********************************
+        MEDIA QUERIES
+*********************************/
+
+@media (min-width: $breakpoint-md) {
+
+body {
+}
+
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Megalodon",
+  "description": "Megalod's website",
+  "private": true,
+  "main": [
+    "js/scripts.js",
+    "scss/style.scss"
+  ],
+  "dependencies": {
+    "breakpoint-sass": "~2.7"
+  }
+}
+
