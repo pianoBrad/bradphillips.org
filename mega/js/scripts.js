@@ -1,36 +1,3 @@
-//Test explosion code
-/**
-var createPixels = function(numParticles, $tile) {
-	var pixelColor = $tile.css('background-color');
-	var pixelInnerColor = $tile.find('.tile-inner-wrap').css('background-color');
-	
-	var pixelR = "15px";
-
-	for(var i = 0; i < numParticles; i++) {
-		$tile.append(
-			'<span class="pixel" style="background-color: '+pixelColor+'; width: '+pixelR+'; height: '+pixelR+';">'+
-				'<span class="pixel-inner-wrap" style="background-color: '+pixelInnerColor+';"></span>'+
-			'</span>');
-	}
-}
-
-var explode = function($element) {
-	var $tile = $element.closest('.tile');
-	var tileOffset = $tile.offset();
-	var tileCenterX = tileOffset.left + ($tile.outerWidth()/2);
-	var tileCenterY = tileOffset.top + ($tile.outerHeight()/2);
-
-	$tile.find('.pixel').each(function() {
-		console.log($(this));
-		$(this).attr("style", function() { return $(this).attr("style") + " left:"+($tile.outerWidth()/2)+"px;" });
-		$(this).attr('style', function() { return $(this).attr("style") + " top:"+($tile.outerHeight()/2)+"px;" });
-		console.log($(this).css('top'));
-	});
-	
-	$element.addClass('exploding');
-}
-**/
-
 var setTheme = function($element) {
 	var theme_classes = ['yellow', 'blue'];
 	var random_number = Math.floor(Math.random()*theme_classes.length);
@@ -46,27 +13,65 @@ var clickOrTouch = function() {
 	} 
 }
 
+var updateTilesWord = function(theWord) {
+	var $elements = $('.tile');
+	var length = $elements.length;
+	var index = 0;
+	var speed = 200;
+	
+	var timer = setInterval(replaceWord, speed);
+
+	function replaceWord() {
+
+		var htmlContent = '';
+
+        if (typeof theWord[index] !== 'undefined') {
+            console.log('yah!');
+            htmlContent = '<span class="dropshadow-'+theWord[index]+'">'+theWord[index]+'</span>';
+        }
+
+        $($elements.get(index)).find('.letter').html(htmlContent);
+
+		index++;
+
+        // remove timer after interating through all articles
+        if (index >= length) {
+            clearInterval(timer);
+        }
+	}
+}
+
+var goLive = function() {
+	$('html').addClass('live');
+}
+
+var uiNext = function($element) {
+	
+	$('html').removeClass('live');
+
+	if ($element.hasClass('tile')) {
+		$element.find('.tile-click-overlay').addClass('selected').delay(150).queue(function(next) {
+			$(this).removeClass('selected').dequeue();
+			var next_word = $element.data('nextWord');
+			if (typeof next_word !== 'undefined') {
+				updateTilesWord(next_word);
+			} else {
+				goLive();
+			}
+		});
+	}
+
+}
+
 $( document ).ready(function() {
 
 setTheme($('.tiles-wrap'));
 
-// Test explosion code
-/**
-$('.tile').each(function() {
-	createPixels(1, $(this));
-});
-
-$('.tile').click(function() {
-	if (!$(this).hasClass('exploding') && !$(this).hasClass('exploded')) {
-		explode($(this));
-	}
-});
-**/
 
 $('.tile').on(clickOrTouch(), function() {
-	$(this).find('.tile-click-overlay').addClass('selected').delay(150).queue(function(next) {
-		$(this).removeClass('selected').dequeue();
-	});
+	if ($('.live').length > 0) {
+		uiNext($(this));
+	}
 });
 
 });
