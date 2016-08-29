@@ -1,0 +1,80 @@
+$color-base: $color-yellow;
+$color-secondary: $color-red;
+
+.tiles-wrap {
+	&.yellow {
+		.tiles {
+			.tile {
+				background: $color-base;
+				&.exploding {
+					background-color: transparent;
+				}
+				.pixel {
+				}
+				.tile-inner-wrap {
+					color: $color-white;
+					background-color: transparent;
+					.letter {
+					}	
+				}
+				&:hover {
+					&:before {
+						@include alpha-background-color(rgba($color-black, 0.05), $color-base);
+					}
+				}
+				&:nth-child(9n-8) {
+				}
+				&:nth-child(9n-7) {
+					.tile-inner-wrap {
+						@include alpha-background-color(rgba($color-secondary, 0.15), $color-base);
+					}
+				}
+				&:nth-child(9n-6) {
+					.tile-inner-wrap {
+						@include alpha-background-color(rgba($color-secondary, 0.24), $color-base);
+					}
+				}
+				&:nth-child(9n-5) {
+					.tile-inner-wrap {
+						@include alpha-background-color(rgba($color-secondary, 0.33), $color-base);
+					}
+				}
+				&:nth-child(9n-4) {
+					.tile-inner-wrap {
+						@include alpha-background-color(rgba($color-secondary, 0.42), $color-base);
+					}
+				}
+				&:nth-child(9n-3) {
+					.tile-inner-wrap {
+						@include alpha-background-color(rgba($color-secondary, 0.51), $color-base);
+					}
+				}
+				&:nth-child(9n-2) {
+					.tile-inner-wrap {
+						@include alpha-background-color(rgba($color-secondary, 0.60), $color-base);
+					}
+				}
+				&:nth-child(9n-1) {
+					.tile-inner-wrap {
+						@include alpha-background-color(rgba($color-secondary, 0.69), $color-base);
+					}
+				}
+				&:nth-child(9n) {
+					.tile-inner-wrap {
+						@include alpha-background-color(rgba($color-secondary, 0.78), $color-base);
+					}
+				}
+			}
+		}
+		.pixels {
+		}
+	}
+}
+
+/*********************************
+        MEDIA QUERIES
+*********************************/
+
+@media (min-width: $breakpoint-md) {
+
+}
