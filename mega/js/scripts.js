@@ -38,6 +38,14 @@ var setTheme = function($element) {
 	$element.addClass(theme_classes[random_number]);	
 }
 
+var clickOrTouch = function() {
+	if (Modernizr.touch) {
+		return "touchstart";
+	} else {
+		return "click";
+	} 
+}
+
 $( document ).ready(function() {
 
 setTheme($('.tiles-wrap'));
@@ -55,7 +63,7 @@ $('.tile').click(function() {
 });
 **/
 
-$('.tile').click(function() {
+$('.tile').on(clickOrTouch(), function() {
 	$(this).find('.tile-click-overlay').addClass('selected').delay(150).queue(function(next) {
 		$(this).removeClass('selected').dequeue();
 	});
