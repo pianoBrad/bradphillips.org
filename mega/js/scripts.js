@@ -13,11 +13,17 @@ var clickOrTouch = function() {
 	} 
 }
 
+var pressTile = function($element) {
+    $element.find('.tile-click-overlay').addClass('selected').delay(150).queue(function(next) {
+        $(this).removeClass('selected').dequeue();
+    });
+}
+
 var updateTilesWord = function(theWord) {
 	var $elements = $('.tile');
 	var length = $elements.length;
 	var index = 0;
-	var speed = 200;
+	var speed = 150;
 	
 	var timer = setInterval(replaceWord, speed);
 
@@ -30,6 +36,7 @@ var updateTilesWord = function(theWord) {
             htmlContent = '<span class="dropshadow-'+theWord[index]+'">'+theWord[index]+'</span>';
         }
 
+        pressTile($($elements.get(index))); 
         $($elements.get(index)).find('.letter').html(htmlContent);
 
 		index++;
