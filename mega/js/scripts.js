@@ -63,10 +63,11 @@ var updateTilesWord = function($clicked_element, theWord) {
         } else { index++; }
 
         // remove timer after interating through all articles
-        if (mode != "plural") {
+        if (mode == "plural") {
             if (index >= length) {
                 changeTheme($('.tiles-wrap'));
                 clearInterval(timer);
+                goLive();
             }
         } else {
             clearInterval(single_timer);
@@ -84,17 +85,6 @@ var uiNext = function($element) {
 
 	if ($element.hasClass('tile')) {
 	    var next_word = $element.data('nextWord');
-        /**
-        $element.find('.tile-click-overlay').addClass('selected').delay(150).queue(function(next) {
-			$(this).removeClass('selected').dequeue();
-			var next_word = $element.data('nextWord');
-			if (typeof next_word !== 'undefined') {
-				updateTilesWord(next_word);
-			} else {
-				goLive();
-			}
-		});
-        **/
         if (typeof next_word !== 'undefined') {
             updateTilesWord($element, next_word);
         } else {
