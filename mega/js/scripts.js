@@ -31,7 +31,8 @@ var pressTile = function($element) {
 }
 
 var updateTilesWord = function($clicked_element, theWord) {
-	var $elements = $('.tile');
+
+    var $elements = $('.tile');
 	var $clicked_element_index = $clicked_element.index();
     var length = $elements.length;
 	var index = 0;
@@ -65,7 +66,6 @@ var updateTilesWord = function($clicked_element, theWord) {
         // remove timer after interating through all articles
         if (mode == "plural") {
             if (index >= length) {
-                changeTheme($('.tiles-wrap'));
                 clearInterval(timer);
                 goLive();
             }
@@ -73,15 +73,17 @@ var updateTilesWord = function($clicked_element, theWord) {
             clearInterval(single_timer);
         }
 	}
+
+    changeTheme($('.tiles-wrap'));
 }
 
 var goLive = function() {
-	$('html').addClass('live');
+	$('html').removeClass('ui-updating').addClass('live');
 }
 
 var uiNext = function($element) {
 	
-	$('html').removeClass('live');
+	$('html').removeClass('live').addClass('ui-updating');
 
 	if ($element.hasClass('tile')) {
 	    var next_word = $element.data('nextWord');

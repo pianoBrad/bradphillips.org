@@ -17,7 +17,6 @@ $tile-font-size-sm: 7.5rem;
 			height: 33.333%;
 			min-height: ($tile-font-size-xs + 5rem);
 			border: 5px solid $color-black;
-            @include transition(background-color 0.5s);
             &.exploding {
 				background-color: transparent;	
 				.tile-inner-wrap {
@@ -254,6 +253,15 @@ $tile-font-size-sm: 7.5rem;
 	}
 }
 
+.ui-updating {
+    .tiles-wrap {
+        .tiles {
+            .tile {
+                @include transition(background-color 1s);    
+            }    
+        }    
+    }    
+}
 
 /*********************************
         MEDIA QUERIES
