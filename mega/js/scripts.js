@@ -39,10 +39,11 @@ var updateTilesWord = function($clicked_element, theWord) {
 	var speed = 150;
 
     var single_timer = setInterval(replaceLetter("single"), speed);
-	var timer = setInterval(replaceLetter("plural"), speed);
+	var timer = setInterval(replaceLetter, speed);
 
 	function replaceLetter(mode) {
-      
+     
+        mode = mode || "plural";
         if (mode != "plural") { 
             index = $clicked_element_index; 
         } else if (mode == "plural" && index == 0 && $clicked_element_index == 0) {
