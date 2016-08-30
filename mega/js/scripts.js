@@ -41,7 +41,7 @@ var updateTilesWord = function($clicked_element, theWord) {
     var single_timer = setInterval(replaceLetter("single"), speed);
 	var timer = setInterval(replaceLetter("plural"), speed);
 
-	function replaceLetter("plural") {
+	function replaceLetter(mode) {
       
         if (mode != "plural") { 
             index = $clicked_element_index; 
