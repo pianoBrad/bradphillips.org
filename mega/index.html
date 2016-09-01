@@ -9,10 +9,10 @@
 
     <title>Megalodon</title>
 
-    <section class="ui-phone container-fluid">
+    <section class="ui-phone ui container-fluid">
         <div class="tiles-wrap">
           <ul class="tiles clearfix">
-            <li class="tile letter-m col-xs-4" data-next-word="MAKERS">
+            <li id="ui-tile-1" class="tile letter-m col-xs-4" data-next-word="MAKERS">
               <span class="tile-inner-wrap row">
                 <span class="tile-click-overlay"></span>
                 <div class="letter"><span class="dropshadow-M">M</span></div>
@@ -22,7 +22,7 @@
                 <span class="border-left"></span>
               </span>
             </li>
-            <li class="tile letter-e col-xs-4" data-next-word="ENGINEERS">
+            <li id="ui-tile-2" class="tile letter-e col-xs-4" data-next-word="ENGINEERS">
               <span class="tile-inner-wrap row">
                 <span class="tile-click-overlay"></span>
                 <div class="letter"><span class="dropshadow-E">E</span></div>
@@ -32,7 +32,7 @@
                 <span class="border-left"></span>
               </span>
             </li>
-            <li class="tile letter-g col-xs-4" data-next-word="GAMERS">
+            <li id="ui-tile-3" class="tile letter-g col-xs-4" data-next-word="GAMERS">
               <span class="tile-inner-wrap row">
                 <span class="tile-click-overlay"></span>
                 <div class="letter"><span class="dropshadow-G">G</span></div>
@@ -42,7 +42,7 @@
                 <span class="border-left"></span>
               </span>
             </li>
-            <li class="tile letter-a col-xs-4">
+            <li id="ui-tile-4" class="tile letter-a col-xs-4">
               <span class="tile-inner-wrap row">
                 <span class="tile-click-overlay"></span>
                 <div class="letter"><span class="dropshadow-A">A</span></div>
@@ -52,7 +52,7 @@
                 <span class="border-left"></span>
               </span>
             </li>
-            <li class="tile letter-l col-xs-4">
+            <li id="ui-tile-5" class="tile letter-l col-xs-4">
               <span class="tile-inner-wrap row">
                 <span class="tile-click-overlay"></span>
                 <div class="letter"><span class="dropshadow-L">L</span></div>
@@ -62,7 +62,7 @@
                 <span class="border-left"></span>
               </span>
             </li>
-            <li class="tile letter-o col-xs-4">
+            <li id="ui-tile-6" class="tile letter-o col-xs-4">
               <span class="tile-inner-wrap row">
                 <span class="tile-click-overlay"></span>
                 <div class="letter"><span class="dropshadow-O">O</span></div>
@@ -72,7 +72,7 @@
                 <span class="border-left"></span>
               </span>
             </li>
-            <li class="tile letter-d col-xs-4">
+            <li id="ui-tile-7" class="tile letter-d col-xs-4">
               <span class="tile-inner-wrap row">
                 <span class="tile-click-overlay"></span>
                 <div class="letter"><span class="dropshadow-D">D</span></div>
@@ -82,7 +82,7 @@
                 <span class="border-left"></span>
               </span>
             </li>
-            <li class="tile letter-o col-xs-4">
+            <li id="ui-tile-8" class="tile letter-o col-xs-4">
               <span class="tile-inner-wrap row">
                 <span class="tile-click-overlay"></span>
                 <div class="letter"><span class="dropshadow-O">O</span></div>
@@ -92,7 +92,7 @@
                 <span class="border-left"></span>
               </span>
             </li>
-            <li class="tile letter-n col-xs-4">
+            <li id="ui-tile-9" class="tile letter-n col-xs-4">
               <span class="tile-inner-wrap row">
                 <span class="tile-click-overlay"></span>
                 <div class="letter"><span class="dropshadow-N">N</span></div>
@@ -104,6 +104,31 @@
             </li>
           </ul>
           <div class="pixels"></div>
+        </div>
+        <div class="tiles-wrap nav left">
+            <ul class="tiles">
+              <li class="tile letter-m col-xs-4 pull-right">
+                <span class="tile-inner-wrap row">
+                  <span class="tile-click-overlay"></span>
+                  <div class="icon icon-arrow-left"></div>
+                  <span class="border-top"></span>
+                  <span class="border-right"></span>
+                  <span class="border-bottom"></span>
+                  <span class="border-left"></span>
+                </span>
+              </li>
+              <li class="clearfix"></li>
+              <li class="tile letter-m col-xs-4 pull-right">
+                <span class="tile-inner-wrap row">
+                  <span class="tile-click-overlay"></span>
+                  <div class="icon icon-arrow-left"></div>
+                  <span class="border-top"></span>
+                  <span class="border-right"></span>
+                  <span class="border-bottom"></span>
+                  <span class="border-left"></span>
+                </span>
+              </li>
+            </ul>
         </div>
     </section>
 
@@ -149,6 +174,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
     <script src="js/anime.min.js"></script>
+    <script src="js/hammer.min.js"></script>
+    <script src="js/jquery.hammer.js"></script>
     <script src="js/modernizr.js"></script>
     <script src="js/bootstrap.min.js"></script>
 

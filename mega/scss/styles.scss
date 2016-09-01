@@ -47,6 +47,14 @@ nav {
 ul {
 }
 
+[class^="icon"] {
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+[class*="-arrow-"] {
+	background-image: url("../img/arrows.svg");
+}
+
 /*********************************
         CONTENT STYLES
 *********************************/
