@@ -107,26 +107,45 @@ function dirProp(direction, hProp, vProp) {
     return (direction & Hammer.DIRECTION_HORIZONTAL) ? hProp : vProp
 }
 
+var percentToPix = function(percent, $parent, dir) {
+	var containerW = $parent.outerWidth();
+	var containerH = $parent.outerHeight();
+	percent = percent/100;
+	pixels = 0;
+
+	switch (dir) {
+		case "left":
+		case "right":
+			pixels = (containerW * percent);
+			break;
+		default: 
+			pixels = (containerH * percent);
+			break;
+	}
+
+	return pixels;
+}
+
 var moveTileSet = function(elements, percent, dir) {
-	//console.log(percent);
 	$.each(elements, function() {
-		if (percent < (100/numCols) && percent > -(100/numCols)) { 
-			$(this).css({
-				'left' : percent+'%'
-			});
-		} else if (percent < -(100/numCols) && percent < 0) {
-			$(this).css({
-                'left' : '-'+percent+'%'
-            });
-		} else if (percent < -(100/numCols)) {
-			$(this).css({
-                'left' : '-33.333%'
-            });
-		} else {
-			$(this).css({
-				'left' : '33.333%'
-			});
+		var $parent = $(this).closest('.tiles');
+		var left = '0px';
+		var threshold = $parent.outerWidth() * ((100/numCols)/100);
+		if (dir == "up" || dir == "down") {
+			console.log('whoops');
+			threshold = $parent.outerHeight() * ((100/numCols)/100);
 		}
+		if ((percent < (100/numCols) && percent > 0) || (percent > -(100/numCols) && percent < 0)) { 
+			left = percentToPix(percent, $parent, dir)+'px';
+		} else if (percent < -(100/numCols)) {
+			left = '-'+threshold+'px';
+		} else {
+			left = threshold+'px';
+		}
+		$(this).css({
+			'left' : left
+		});
+		
 	});
 }
 
@@ -161,12 +180,12 @@ var tileHammerHandler = function(tileId, ev) {
 		case "panleft":
 			tiles = $.merge(tiles, getMatchingSiblings($tile, $allTiles));
 			tiles = $.merge(tiles, getMatchingSiblings($tile, $('.tiles-wrap.nav.left .tile')));
-			moveTileSet(tiles, percent);
+			moveTileSet(tiles, percent, 'left');
 			break;
 		case "panright":
-			tiles = $.merge(tiles,getMatchingSiblings($tile, $allTiles));
+			tiles = $.merge(tiles, getMatchingSiblings($tile, $allTiles));
 			tiles = $.merge(tiles, getMatchingSiblings($tile, $('.tiles-wrap.nav.left .tile')));
-			moveTileSet(tiles, percent);
+			moveTileSet(tiles, percent, 'right');
 		default:
 			break;
 	}
