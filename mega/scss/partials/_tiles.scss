@@ -14,6 +14,11 @@ $tile-font-size-sm: 7.5rem;
 		list-style: none;
 		padding: 0;
 		margin: 0;
+		&.animate {
+			.tile {
+				@include transition(all 0.25s!important);	
+			}
+		}
 		.tile {
 			font-family: $font-mega-thin-caps;
 			position: relative;
@@ -21,7 +26,6 @@ $tile-font-size-sm: 7.5rem;
 			min-height: ($tile-font-size-xs + 5rem);
 			border: 5px solid $color-black;
             left: 0;
-			@include transition(left 0.25s);
 			&.exploding {
 				background-color: transparent;	
 				.tile-inner-wrap {

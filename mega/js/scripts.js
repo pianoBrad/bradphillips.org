@@ -1,8 +1,9 @@
 var theme_classes = ['yellow', 'blue'];
 var hammerInstances = [];
 var numCols = 3;
-var tileOffsetStartX = 0;
-var tileOffsetStartY = 0;
+var curPercentOffset = 0;
+var globalThreshold = (100/numCols);
+
 
 var setTheme = function($element) {
     var random_number = Math.floor(Math.random()*theme_classes.length);
@@ -131,41 +132,63 @@ var percentToPix = function(percent, $parent, dir) {
 var moveTileSet = function(elements, percent, dir) {
 	$.each(elements, function() {
 
+		$('.tiles').removeClass('animate');
+
 		// Set up initial variables
 		var $parent = $(this).closest('.tiles');
-		var left = '0%';
-		var threshold = (100/numCols);
-		var startOffset = (tileOffsetStartX > 0) ? ($parent.outerWidth()/tileOffsetStartX) : 0;
-		var totalOffset = threshold - startOffset;	
-	
-	
+		var threshold = 50;
+		var top = '0%';
+		
 		if (dir == "up" || dir == "down") {
-			threshold = $parent.outerHeight() * ((100/numCols)/100);
-			startOffset = (tileOffsetStartY > 0) ? ($parent.outerHeight()/tileOffsetStartY) : 0;
+			//startOffset = (tileOffsetStartY > 0) ? ($parent.outerHeight()/tileOffsetStartY) : 0;
 		}
-		if ((percent < totalOffset && percent > 0) || (percent > -(totalOffset) && percent < 0)) { 
-			left = (startOffset + percent)+'%';
+		if ((percent < 100 && percent > 0) || (percent > -(100) && percent < 0)) { 
+			left = (percent)+'%';
 		} else if (percent < -(100/numCols)) {
-			left = '-'+threshold+'%';
+			left = '-100%';
 		} else {
-			left = threshold+'%';
+			left = '100%';
 		}
-	
+
 		// Move them tiles!
 		if (dir != "up" && dir != "down") {
 			$(this).css({
-				'left' : left
+				"-webkit-transform":"translate("+left+","+top+")",
+				"-ms-transform":"translate("+left+","+top+")",
+				"transform":"translate("+left+","+top+")"
 			});
 		}
 		
 	});
 }
 
-getMatchingSiblings = function($element, $searchSet) {
+var animateTileSet = function(elements, percentage) {
+	
+	percentage = percentage || '0%';
+
+	$.each(elements, function() {
+		$(this).css({
+            "-webkit-transform":"translateX("+percentage+")",
+            "-ms-transform":"translateX("+percentage+")",
+            "transform":"translateX("+percentage+")",
+			"z-index":"1"
+		});
+	});
+}
+
+getMatchingSiblings = function($element, $searchSet, dir) {
 	var tiles = [];
+	dir = dir || 'horizontal';
+
 	$searchSet.each(function() {
-        if($(this).offset().top == $element.offset().top) {
-            tiles.push($(this));
+		if (dir == 'horizontal') {
+			if($(this).offset().top == $element.offset().top) {
+				tiles.push($(this));
+			}
+		} else {
+			if($(this).offset().left == $element.offset().left) {
+                tiles.push($(this));
+            }
 		}
     });
 	return tiles;
@@ -178,26 +201,41 @@ var tileHammerHandler = function(tileId, ev) {
 	
 	var tileW = $tile.outerWidth();
 	var delta = dirProp(ev.direction, ev.deltaX, ev.deltaY);
-    var percent = ((100 / tileW) * delta) / numCols;
-    var animate = false;
+    //var percent = ((100 / tileW) * delta) / numCols;
+    var percent = ((100 / tileW) * delta);
+	var animate = false;
 
 	//console.log(percent);
 	$allTiles = $tile.siblings();
 
 	var tiles = [];
 	tiles.push($tile);
+	tiles = $.merge(tiles, getMatchingSiblings($tile, $allTiles));
+	tiles = $.merge(tiles, getMatchingSiblings($tile, $('.tiles-wrap.nav.left .tile')));
 	//console.log(ev.type);
+
 	
 	switch (ev.type) {
 		case "panleft":
-			tiles = $.merge(tiles, getMatchingSiblings($tile, $allTiles));
-			tiles = $.merge(tiles, getMatchingSiblings($tile, $('.tiles-wrap.nav.left .tile')));
 			moveTileSet(tiles, percent, 'left');
+			curPercentOffset = percent;			
 			break;
 		case "panright":
-			tiles = $.merge(tiles, getMatchingSiblings($tile, $allTiles));
-			tiles = $.merge(tiles, getMatchingSiblings($tile, $('.tiles-wrap.nav.left .tile')));
 			moveTileSet(tiles, percent, 'right');
+			curPercentOffset = percent;
+			break;
+		case "panend":
+			$('.tiles').addClass('animate');
+			if (Math.abs(curPercentOffset) > globalThreshold) {
+				if (curPercentOffset < 0) {
+					animateTileSet(tiles, '-100%');
+				} else {
+					animateTileSet(tiles, '100%');
+				}
+			} else {
+				animateTileSet(tiles, '0%');
+			}
+			break; 
 		default:
 			break;
 	}
@@ -227,10 +265,8 @@ var setUpHammerListeners = function($selector) {
 				tileOffsetStartX = $(ev.target).closest('.tiles').find('.tile').first().css('left').replace('px','');
 				tileOffsetStartY = $(ev.target).closest('.tiles').find('.tile').first().css('top').replace('px','');
 			
-				console.log(tileOffsetStartX);
-			} else {	
-				tileHammerHandler(tileId, ev);
-			}
+			} 	
+			tileHammerHandler(tileId, ev);
 		});
 		hammerInstances.push(mc);
 	});
