@@ -1,8 +1,8 @@
 var theme_classes = ['yellow', 'blue'];
 var hammerInstances = [];
 var numCols = 3;
-var tileOffsetXStart = 0;
-var tileOffsetYStart = 0;
+var tileOffsetStartX = 0;
+var tileOffsetStartY = 0;
 
 var setTheme = function($element) {
     var random_number = Math.floor(Math.random()*theme_classes.length);
@@ -131,26 +131,32 @@ var percentToPix = function(percent, $parent, dir) {
 var moveTileSet = function(elements, percent, dir) {
 	$.each(elements, function() {
 
+		// Set up initial variables
 		var $parent = $(this).closest('.tiles');
-		var left = '0px';
-		var threshold = $parent.outerWidth() * ((100/numCols)/100);
-		var startOffset = tileOffsetXStart;		
-
+		var left = '0%';
+		var threshold = (100/numCols);
+		var startOffset = (tileOffsetStartX > 0) ? ($parent.outerWidth()/tileOffsetStartX) : 0;
+		var totalOffset = threshold - startOffset;	
+	
 	
 		if (dir == "up" || dir == "down") {
 			threshold = $parent.outerHeight() * ((100/numCols)/100);
-			originalOffset = tileOffsetYStart;
+			startOffset = (tileOffsetStartY > 0) ? ($parent.outerHeight()/tileOffsetStartY) : 0;
 		}
-		if ((percent < (100/numCols) && percent > 0) || (percent > -(100/numCols) && percent < 0)) { 
-			left = (startOffset + percentToPix(percent, $parent, dir))+'px';
+		if ((percent < totalOffset && percent > 0) || (percent > -(totalOffset) && percent < 0)) { 
+			left = (startOffset + percent)+'%';
 		} else if (percent < -(100/numCols)) {
-			left = '-'+threshold+'px';
+			left = '-'+threshold+'%';
 		} else {
-			left = threshold+'px';
+			left = threshold+'%';
 		}
-		$(this).css({
-			'left' : left
-		});
+	
+		// Move them tiles!
+		if (dir != "up" && dir != "down") {
+			$(this).css({
+				'left' : left
+			});
+		}
 		
 	});
 }
@@ -216,12 +222,12 @@ var setUpHammerListeners = function($selector) {
 		// listen to events...
 		mc.on("panstart panleft panright panup pandown panend pancancel", function(ev) {
 			//myElement.textContent = ev.type +" gesture detected.";
-			if(ev.type == "panend") {
-				var tileOffset = $(ev.target).offset();
+			if(ev.type == "panend" || ev.type == "panstart") {
 
-				tileOffsetXStart = tileOffset.left;
-				tileOffsetYStart = tileOffset.top;
-				console.log(tileOffsetXStart);
+				tileOffsetStartX = $(ev.target).closest('.tiles').find('.tile').first().css('left').replace('px','');
+				tileOffsetStartY = $(ev.target).closest('.tiles').find('.tile').first().css('top').replace('px','');
+			
+				console.log(tileOffsetStartX);
 			} else {	
 				tileHammerHandler(tileId, ev);
 			}
