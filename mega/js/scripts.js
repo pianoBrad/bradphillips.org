@@ -153,9 +153,9 @@ var moveTileSet = function(elements, percent, dir) {
 		// Move them tiles!
 		if (dir != "up" && dir != "down") {
 			$(this).css({
-				"-webkit-transform":"translate("+left+","+top+")",
-				"-ms-transform":"translate("+left+","+top+")",
-				"transform":"translate("+left+","+top+")"
+				"-webkit-transform":"translateX("+left+")",
+				"-ms-transform":"translateX("+left+")",
+				"transform":"translateX("+left+")"
 			});
 		}
 		
@@ -163,8 +163,6 @@ var moveTileSet = function(elements, percent, dir) {
 }
 
 var animateTileSet = function(elements, percentage) {
-
-	console.log('test');	
 
 	percentage = percentage || '0%';
 
@@ -176,6 +174,7 @@ var animateTileSet = function(elements, percentage) {
 			"z-index":"1"
 		});
 	});
+	setTimeout(goLive(), 300);
 }
 
 getMatchingSiblings = function($element, $searchSet, dir) {
