@@ -1,6 +1,8 @@
 var theme_classes = ['yellow', 'blue'];
 var hammerInstances = [];
 var numCols = 3;
+var tileOffsetXStart = 0;
+var tileOffsetYStart = 0;
 
 var setTheme = function($element) {
     var random_number = Math.floor(Math.random()*theme_classes.length);
@@ -128,15 +130,19 @@ var percentToPix = function(percent, $parent, dir) {
 
 var moveTileSet = function(elements, percent, dir) {
 	$.each(elements, function() {
+
 		var $parent = $(this).closest('.tiles');
 		var left = '0px';
 		var threshold = $parent.outerWidth() * ((100/numCols)/100);
+		var startOffset = tileOffsetXStart;		
+
+	
 		if (dir == "up" || dir == "down") {
-			console.log('whoops');
 			threshold = $parent.outerHeight() * ((100/numCols)/100);
+			originalOffset = tileOffsetYStart;
 		}
 		if ((percent < (100/numCols) && percent > 0) || (percent > -(100/numCols) && percent < 0)) { 
-			left = percentToPix(percent, $parent, dir)+'px';
+			left = (startOffset + percentToPix(percent, $parent, dir))+'px';
 		} else if (percent < -(100/numCols)) {
 			left = '-'+threshold+'px';
 		} else {
@@ -208,9 +214,17 @@ var setUpHammerListeners = function($selector) {
 		mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 
 		// listen to events...
-		mc.on("panleft panright panup pandown", function(ev) {
+		mc.on("panstart panleft panright panup pandown panend pancancel", function(ev) {
 			//myElement.textContent = ev.type +" gesture detected.";
-			tileHammerHandler(tileId, ev);
+			if(ev.type == "panend") {
+				var tileOffset = $(ev.target).offset();
+
+				tileOffsetXStart = tileOffset.left;
+				tileOffsetYStart = tileOffset.top;
+				console.log(tileOffsetXStart);
+			} else {	
+				tileHammerHandler(tileId, ev);
+			}
 		});
 		hammerInstances.push(mc);
 	});
