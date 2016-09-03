@@ -2,7 +2,7 @@ var theme_classes = ['yellow', 'blue'];
 var hammerInstances = [];
 var numCols = 3;
 var curPercentOffset = 0;
-var globalThreshold = (100/numCols);
+var globalThreshold = (100/2);
 
 
 var setTheme = function($element) {
@@ -163,7 +163,9 @@ var moveTileSet = function(elements, percent, dir) {
 }
 
 var animateTileSet = function(elements, percentage) {
-	
+
+	console.log('test');	
+
 	percentage = percentage || '0%';
 
 	$.each(elements, function() {
