@@ -4,6 +4,13 @@ var numCols = 3;
 var curPercentOffset = 0;
 var globalThreshold = (100/2);
 
+function typeIt($selector, phrases) {
+	$selector.typed({
+		strings: phrases,
+        contentType: 'html', //to do html, set to 'text' if only strings
+		typeSpeed: 0
+    });
+}
 
 var setTheme = function($element) {
     var random_number = Math.floor(Math.random()*theme_classes.length);
@@ -287,5 +294,7 @@ $('.live .tile').on('click', function() {
 });
 
 setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
+
+typeIt($('#hud-message'), ["hello!"]);
 
 });
