@@ -369,7 +369,7 @@ function addEventListeners() {
 		if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
 			uiNext($(this));
 		} else if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1 && $element.closest('.ui-text-detail').length > 0) {
-            if ($element.closest('.showing').length < 1) {
+            if ($element.closest('.showing').length < 1 && $element.closest('.wave-container').length < 1) {
                 hideTextDetail();
             }
         } else {
