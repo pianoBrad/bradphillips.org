@@ -365,20 +365,25 @@ function addEventListeners() {
 		addWaves();
 	});
 
-	$(document).on('click', '.live .tile, .ui-text-detail .text-detail', function(e) {
+	$('html').on('click', '.tile', function(e) {
 		var $element = $(e.target);
 		console.log($element);
 
-		if ($element.closest('.tile').length > 0) {
+		if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
 			uiNext($(this));
-		} else if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1) {
-			console.log('test now');
-			if ($element.closest('.showing').length < 1) {
-				hideTextDetail();	
-			}
 		} else {
 		}
 	
+	});
+	$('html').on('click', '.text-detail', function(e) {
+		var $element = $(e.target);		
+
+		if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1 && $element.closest('.ui-text-detail').length > 0) {
+			console.log('test now');
+            if ($element.closest('.showing').length < 1) {
+                hideTextDetail();
+            }
+		}
 	});
 
 	setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
