@@ -371,6 +371,7 @@ function addEventListeners() {
 		if ($element.closest('.tile').length > 0) {
 			uiNext($(this));
 		} else if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1) {
+			console.log('test now');
 			if ($element.closest('.showing').length < 1) {
 				hideTextDetail();	
 			}
