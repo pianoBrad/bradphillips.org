@@ -12,8 +12,10 @@ $color-mega-grey : rgb(204, 204, 204);
 	z-index: -1; //start out hidden
 	padding: 0 ($mega-pixel-size * 3);
 	overflow: hidden;
+	cursor: pointer;
 
 	.megalodon {
+		cursor: auto;
 		position: relative;
 		top: 105vh;
 		height: 75vh;

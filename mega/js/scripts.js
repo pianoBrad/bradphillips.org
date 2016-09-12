@@ -260,7 +260,6 @@ getMatchingSiblings = function($element, $searchSet, dir) {
 }
 
 var tileHammerHandler = function(tileId, ev) {
-	console.log(isUpdating());
 	if (isUpdating('ui-tiles') == 'false') {	
 
 	stopLive('ui-sliding');	
@@ -330,7 +329,6 @@ var setUpHammerListeners = function($selector) {
 		// listen to events...
 		mc.on("panstart panleft panright panup pandown panend pancancel", function(ev) {
 			//myElement.textContent = ev.type +" gesture detected.";
-			console.log('hammer fired!');
 			if(ev.type == "panend" || ev.type == "panstart") {
 
 				tileOffsetStartX = $(ev.target).closest('.tiles').find('.tile').first().css('left').replace('px','');
@@ -367,7 +365,6 @@ function addEventListeners() {
 
 	$('html').on('click', '.tile', function(e) {
 		var $element = $(e.target);
-		//console.log($element);
 
 		if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
 			uiNext($(this));
@@ -377,10 +374,8 @@ function addEventListeners() {
 	});
 	$('body').on('click touchend', '.text-detail', function(e) {
 		var $element = $(e.target);		
-		console.log('test');
 
 		if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1 && $element.closest('.ui-text-detail').length > 0) {
-			console.log('test now');
             if ($element.closest('.showing').length < 1) {
                 hideTextDetail();
             }
