@@ -14,8 +14,10 @@ function typeIt($selector, phrases) {
 
 var setTheme = function($element) {
     var random_number = Math.floor(Math.random()*theme_classes.length);
-    
-	$element.addClass(theme_classes[random_number]);	
+    var new_theme = theme_classes[random_number];
+
+	$('body').addClass(new_theme);
+	$element.addClass(new_theme);
 }
 
 var changeTheme = function($element) {
@@ -90,19 +92,40 @@ var updateTilesWord = function($clicked_element, theWord) {
     changeTheme($('.tiles-wrap'));
 }
 
-var goLive = function() {
-	$('html').removeClass('ui-updating').addClass('live');
+function goLive() {
+	$('html').removeClass('ui-updating ui-sliding ui-tiles').addClass('live');
 }
-var stopLive = function() {
+function stopLive(type) {
+	type = type || 'none';	
+
 	$('html').removeClass('live').addClass('ui-updating');
+	if (type != 'none') {
+		$('html').addClass(type);
+	}
+}
+function isLive() {
+	if ($('html').hasClass('live')) {
+		return 'true';
+	} else {
+		return 'false';
+	}
+}
+function isUpdating(theClass) {
+	theClass = theClass || 'ui-updating'
+
+	if ($('html').hasClass(theClass)) {
+        return 'true';
+    } else {
+        return 'false';
+    }
 }
 
 var uiNext = function($element) {
 	
-	stopLive();	
-
 	if ($element.hasClass('tile')) {
-	    var next_word = $element.data('nextWord');
+		stopLive('ui-tiles');	    
+
+		var next_word = $element.data('nextWord');
         if (typeof next_word !== 'undefined') {
             updateTilesWord($element, next_word);
         } else {
@@ -203,7 +226,10 @@ getMatchingSiblings = function($element, $searchSet, dir) {
 }
 
 var tileHammerHandler = function(tileId, ev) {
-	stopLive();	
+	console.log(isUpdating());
+	if (isUpdating('ui-tiles') == 'false') {	
+
+	stopLive('ui-sliding');	
 
 	$tile = $('#'+tileId);	
 	
@@ -247,6 +273,8 @@ var tileHammerHandler = function(tileId, ev) {
 		default:
 			break;
 	}
+
+	}
 }
 
 
@@ -268,6 +296,7 @@ var setUpHammerListeners = function($selector) {
 		// listen to events...
 		mc.on("panstart panleft panright panup pandown panend pancancel", function(ev) {
 			//myElement.textContent = ev.type +" gesture detected.";
+			console.log('hammer fired!');
 			if(ev.type == "panend" || ev.type == "panstart") {
 
 				tileOffsetStartX = $(ev.target).closest('.tiles').find('.tile').first().css('left').replace('px','');
@@ -279,21 +308,43 @@ var setUpHammerListeners = function($selector) {
 		hammerInstances.push(mc);
 	});
 
+	goLive();
 }
 
+function addWaves() {
+	var winW = $(window).outerWidth();
+	var waveW = $('.wave-container .wave-top').first().outerWidth();	
+	var numWaveTops = Math.ceil(winW/waveW);
+
+	$('.wave-container').each(function() {
+		$(this).find('.wave-top').remove();
+		var $i = 0;
+		while ($i < numWaveTops) {
+			$(this).prepend('<span class="wave-top"></span>');
+			$i++;	
+		} 
+	});
+}
+
+function addEventListeners() {
+	$(window).resize(function() {
+		addWaves();
+	});
+
+	$(document).on('click', '.live .tile', function() {
+		uiNext($(this));
+	});
+
+	setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
+}
 
 $( document ).ready(function() {
 
 setTheme($('.tiles-wrap'));
 
+addWaves();
 
-$('.live .tile').on('click', function() {
-	if ($('.live').length > 0) {
-		uiNext($(this));
-	}
-});
-
-setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
+addEventListeners();
 
 typeIt($('#hud-message'), ["hello!"]);
 
