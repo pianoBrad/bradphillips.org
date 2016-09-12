@@ -367,7 +367,7 @@ function addEventListeners() {
 
 	$('html').on('click', '.tile', function(e) {
 		var $element = $(e.target);
-		console.log($element);
+		//console.log($element);
 
 		if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
 			uiNext($(this));
@@ -375,8 +375,9 @@ function addEventListeners() {
 		}
 	
 	});
-	$('html').on('click', '.text-detail', function(e) {
+	$('body').on('click', '.text-detail', function(e) {
 		var $element = $(e.target);		
+		console.log('test');
 
 		if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1 && $element.closest('.ui-text-detail').length > 0) {
 			console.log('test now');
