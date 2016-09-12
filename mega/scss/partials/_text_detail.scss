@@ -26,6 +26,7 @@ $color-mega-grey : rgb(204, 204, 204);
 		font-size: 1.6rem;
 		font-family: '8bit';
 		overflow: visible;
+		-webkit-overflow-scrolling: touch;
 		.face {
 			background-color: $color-mega-grey;
 			width: 100%;
