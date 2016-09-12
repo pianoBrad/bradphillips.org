@@ -375,7 +375,7 @@ function addEventListeners() {
 		}
 	
 	});
-	$('body').on('click', '.text-detail', function(e) {
+	$('body').on('click touchend', '.text-detail', function(e) {
 		var $element = $(e.target);		
 		console.log('test');
 
