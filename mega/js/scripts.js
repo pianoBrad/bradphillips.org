@@ -363,23 +363,18 @@ function addEventListeners() {
 		addWaves();
 	});
 
-	$('html').on('click', '.tile', function(e) {
+	$('html').on('click', '.tile, .text-detail', function(e) {
 		var $element = $(e.target);
 
 		if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
 			uiNext($(this));
-		} else {
-		}
-	
-	});
-	$('body').on('click touchend', '.text-detail', function(e) {
-		var $element = $(e.target);		
-
-		if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1 && $element.closest('.ui-text-detail').length > 0) {
+		} else if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1 && $element.closest('.ui-text-detail').length > 0) {
             if ($element.closest('.showing').length < 1) {
                 hideTextDetail();
             }
+        } else {
 		}
+	
 	});
 
 	setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
