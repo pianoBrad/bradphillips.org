@@ -367,6 +367,7 @@ function addEventListeners() {
 
 	$(document).on('click', '.live .tile, .ui-text-detail .text-detail', function(e) {
 		var $element = $(e.target);
+		console.log($element);
 
 		if ($element.closest('.tile').length > 0) {
 			uiNext($(this));
