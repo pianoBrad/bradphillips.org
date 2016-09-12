@@ -34,8 +34,29 @@ $wave-height : 300px + $wave-top-height;
 	}
 	@for $i from 1 through $max-waves {
 		&:nth-last-of-type(#{$i}) {
-			bottom: (75px * $i) - $wave-height;
+			bottom: -$wave-height;
 		}
+	}
+}
+
+.showing, .shown {
+	.wave-container {
+		@include transition(bottom .5s cubic-bezier(0.175, 0.885, 0.320, 1.275)); //easeOutBack
+		@for $i from 1 through $max-waves {
+			&:nth-last-of-type(#{$i}) {
+				bottom: (75px * $i) - $wave-height;
+			}
+		}
+	}
+}
+.shown {
+	.wave-container {
+		@include transition(all 0s);
+	}
+}
+.hiding {
+	.wave-container {
+		@include transition(bottom .5s cubic-bezier(0.600, -0.280, 0.735, 0.045));
 	}
 }
 

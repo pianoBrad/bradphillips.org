@@ -93,7 +93,7 @@ var updateTilesWord = function($clicked_element, theWord) {
 }
 
 function goLive() {
-	$('html').removeClass('ui-updating ui-sliding ui-tiles').addClass('live');
+	$('html').removeClass('ui-updating ui-sliding ui-tiles ui-text-detail').addClass('live');
 }
 function stopLive(type) {
 	type = type || 'none';	
@@ -120,15 +120,49 @@ function isUpdating(theClass) {
     }
 }
 
+function showTextDetail(detail_id) {
+	//Currently demo purposes
+	//To-Do: Incorporate detail_id with eventual JSON doc to construct content for text detail overlay
+	var $detail_overlay = $('.text-detail').first();
+	var $megalodon = $detail_overlay.find('.megalodon').first();
+
+	stopLive('ui-text-detail');
+
+	$detail_overlay.addClass('showing');
+	$megalodon.addClass('showing');
+
+	setTimeout(function() {
+		$detail_overlay.removeClass('showing').addClass('shown');
+		$megalodon.removeClass('showing').addClass('shown');
+	}, 1250);
+}
+function hideTextDetail() {
+	var $detail_overlay = $('.text-detail').first();
+	var $megalodon = $detail_overlay.find('.megalodon').first();
+
+	$detail_overlay.removeClass('shown showing').addClass('hiding');
+	$megalodon.removeClass('shown showing').addClass('hiding');
+
+	setTimeout(function() {
+		$detail_overlay.removeClass('hiding');
+		$megalodon.removeClass('hiding');
+		goLive();
+	}, 1000)
+}
+
 var uiNext = function($element) {
 	
 	if ($element.hasClass('tile')) {
 		stopLive('ui-tiles');	    
 
 		var next_word = $element.data('nextWord');
-        if (typeof next_word !== 'undefined') {
+        var text_detail = $element.data('textDetail');
+
+		if (typeof next_word !== 'undefined') {
             updateTilesWord($element, next_word);
-        } else {
+        } else if (typeof text_detail !== 'undefined') {
+			showTextDetail(text_detail);
+		} else {
             pressTile($element);
             goLive();
         }
@@ -331,8 +365,18 @@ function addEventListeners() {
 		addWaves();
 	});
 
-	$(document).on('click', '.live .tile', function() {
-		uiNext($(this));
+	$(document).on('click', '.live .tile, .ui-text-detail .text-detail', function(e) {
+		var $element = $(e.target);
+
+		if ($element.closest('.tile').length > 0) {
+			uiNext($(this));
+		} else if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1) {
+			if ($element.closest('.showing').length < 1) {
+				hideTextDetail();	
+			}
+		} else {
+		}
+	
 	});
 
 	setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));

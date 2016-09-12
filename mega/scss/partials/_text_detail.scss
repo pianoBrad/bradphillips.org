@@ -14,7 +14,7 @@ $color-mega-grey : rgb(204, 204, 204);
 
 	.megalodon {
 		position: relative;
-		top: 25vh;
+		top: 105vh;
 		height: 75vh;
 		max-width: 960px;
 		margin: 0 auto;	
@@ -135,6 +135,35 @@ $color-mega-grey : rgb(204, 204, 204);
                               linear-gradient(to left,
                                 rgba($color-mega-grey, 0) 0, rgba($color-mega-grey, 0) 0%,
                                 $color-mega-grey 0%, $color-mega-grey 100%);	
+		}
+	}
+
+	&.showing, &.shown {
+		@include transition(background-color 0.25s);
+		z-index: 1;
+		opacity: 1;
+		background-color: rgba(0,0,0,0.65);
+		.megalodon {
+			@include transition(top 1.25s cubic-bezier(0.860, 0.000, 0.070, 1.000));
+			&.showing, &.shown {
+				top: 25vh;
+			}
+		}
+	
+	}
+	&.shown {
+		@include transition(all 0s);
+		.megalodon {
+			@include transition(all 0s);
+		}
+	}
+	&.hiding {
+		@include transition(background-color 0.25s);
+		z-index: 1;
+		opacity: 1;
+		background-color: transparent;
+		.megalodon {
+			@include transition(top 0.5s cubic-bezier(0.600, -0.280, 0.735, 0.045)); //easeInBack
 		}
 	}
 }
