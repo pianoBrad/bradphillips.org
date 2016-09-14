@@ -4,6 +4,8 @@ var numCols = 3;
 var curPercentOffset = 0;
 var globalThreshold = (100/2);
 
+var curMenu = 'home';
+
 function typeIt($selector, phrases) {
 	$selector.typed({
 		strings: phrases,
@@ -46,11 +48,11 @@ var pressTile = function($element) {
 
 var updateTilesWord = function($clicked_element, theWord) {
 
-    var $elements = $('.tile');
+    var $elements = $clicked_element.closest('.ui').find('.tile');
 	var $clicked_element_index = $clicked_element.index();
     var length = $elements.length;
 	var index = 0;
-	var speed = 150;
+	var speed = 125;
 
     var single_timer = setInterval(replaceLetter("single"), speed);
 	var timer = setInterval(replaceLetter, speed);
@@ -93,7 +95,7 @@ var updateTilesWord = function($clicked_element, theWord) {
 }
 
 function goLive() {
-	$('html').removeClass('ui-updating ui-sliding ui-tiles ui-text-detail').addClass('live');
+	$('html').removeClass('ui-updating ui-sliding ui-tiles ui-moving-forward ui-moving-back ui-text-detail').addClass('live');
 }
 function stopLive(type) {
 	type = type || 'none';	
@@ -150,6 +152,46 @@ function hideTextDetail() {
 	}, 1000)
 }
 
+function changeNextWord($selector, word) {
+	$selector.attr('data-next-word',word);
+}
+function changeTextDetail($selector, word) {
+	$selector.attr('data-text-detail', word);
+}
+
+function updateCurMenu(next_word) {
+	if (curMenu != next_word) {
+		curMenu = next_word;
+	}
+	// linkage stuff for demo purposes
+	if (curMenu.indexOf("GAMERS") >= 0) {
+		//We're on gamers tiles, let's set up back/forward buttons
+		for (var i = 0, len = next_word.length; i < len; i++) {
+			if (next_word[i] == 'r') {
+				var $tile = $($('.ui-menu .tile').get(i));
+				$tile.attr('data-next-word', '');
+				$tile.attr('data-text-detail', '');	
+				$tile.attr('data-ui-move-forward','#ui-match');
+			}
+		}
+	} 
+}
+
+function moveUIForward(ui_id) {
+	stopLive('ui-moving-forward');	
+	
+	var $mainMenu = $('.ui-menu');
+	var $selectedMenu = $(ui_id);
+
+	$mainMenu.addClass('inactive');
+	$selectedMenu.addClass('active');
+	
+	setTimeout(goLive, 500);
+}
+function moveUIBackward(ui_id) {
+	stopLive('ui-moving-back');
+}
+
 var uiNext = function($element) {
 	
 	if ($element.hasClass('tile')) {
@@ -157,11 +199,15 @@ var uiNext = function($element) {
 
 		var next_word = $element.data('nextWord');
         var text_detail = $element.data('textDetail');
+		var ui_move_forward = $element.data('uiMoveForward');
 
-		if (typeof next_word !== 'undefined') {
+		if (typeof next_word !== 'undefined' && next_word.length > 0 && curMenu != next_word) {
             updateTilesWord($element, next_word);
-        } else if (typeof text_detail !== 'undefined') {
+			updateCurMenu(next_word);
+        } else if (typeof text_detail !== 'undefined' && text_detail.length > 0) {
 			showTextDetail(text_detail);
+		} else if (typeof ui_move_forward !== 'undefined' && ui_move_forward.length > 0) {
+			moveUIForward(ui_move_forward);	
 		} else {
             pressTile($element);
             goLive();

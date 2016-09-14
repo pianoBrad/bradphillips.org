@@ -55,6 +55,13 @@ ul {
 	background-image: url("../img/arrows.svg");
 }
 
+[class*="ui-moving-"] {
+	.ui-menu, .ui-match {
+		@include transition(left 0.5s, right 0.5s);
+	}
+}
+
+
 /*********************************
         CONTENT STYLES
 *********************************/
@@ -66,6 +73,22 @@ section[class^="ui-"] {
 	padding: 0;
 	overflow: auto;
 }
+
+.ui-menu {
+    position: absolute;
+    left: 0;
+	top: $height-header;
+	&.inactive {
+        left: -100%;
+    }
+}
+.ui-match {
+	&.active {
+        right: 0%;
+        left: inherit;
+    }
+}
+
 
 /*********************************
         MEDIA QUERIES

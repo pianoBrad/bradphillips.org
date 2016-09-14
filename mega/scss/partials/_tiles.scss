@@ -286,8 +286,8 @@ $tile-font-size-sm: 7.5rem;
 		}
 		&.left {
 			width: 100%;
-			height: calc(100% - #{$height-header});
-			top: $height-header;
+			height: 100%;
+			top: 0;
 			right: 100%;
 		}
 		
