@@ -4,6 +4,16 @@
 	top: $height-header;
 }
 
+#ui-match {
+	.tile {
+        &.center {
+            .tile-inner-wrap {
+                background-color: $color-black;
+            }
+        }
+    }	
+}
+
 /*********************************
         MEDIA QUERIES
 *********************************/

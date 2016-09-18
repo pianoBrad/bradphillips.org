@@ -177,19 +177,39 @@ function updateCurMenu(next_word) {
 	} 
 }
 
-function moveUIForward(ui_id) {
-	stopLive('ui-moving-forward');	
+function resetTiles($ui, timeOut) {
+	timeOut = timeOut || 500;
+	console.log($ui);
+	console.log($ui.closest('.tiles-wrap.nav'));
+	$ui.find('.tiles-wrap .tile').each(function() {
+		$(this).attr('style','');
+		console.log($(this));
+	});
 	
-	var $mainMenu = $('.ui-menu');
-	var $selectedMenu = $(ui_id);
-
-	$mainMenu.addClass('inactive');
-	$selectedMenu.addClass('active');
-	
-	setTimeout(goLive, 500);
+	setTimeout(goLive, timeOut);
 }
-function moveUIBackward(ui_id) {
+
+function moveUI(ui_id, direction) {
+	direction = direction || 'forward'
+
 	stopLive('ui-moving-back');
+
+    var $mainMenu = $('.ui-menu');
+    var $selectedMenu = $(ui_id);
+
+	switch(direction) {
+		case 'back': 
+			$mainMenu.removeClass('inactive');
+			$selectedMenu.removeClass('active');
+			resetTiles($mainMenu);
+			break;
+		default:
+			$mainMenu.addClass('inactive');
+			$selectedMenu.addClass('active');
+			resetTiles($selectedMenu);
+			break;
+	}	
+
 }
 
 var uiNext = function($element) {
@@ -200,6 +220,7 @@ var uiNext = function($element) {
 		var next_word = $element.data('nextWord');
         var text_detail = $element.data('textDetail');
 		var ui_move_forward = $element.data('uiMoveForward');
+		var ui_move_back = $element.data('uiMoveBack');
 
 		if (typeof next_word !== 'undefined' && next_word.length > 0 && curMenu != next_word) {
             updateTilesWord($element, next_word);
@@ -207,7 +228,9 @@ var uiNext = function($element) {
         } else if (typeof text_detail !== 'undefined' && text_detail.length > 0) {
 			showTextDetail(text_detail);
 		} else if (typeof ui_move_forward !== 'undefined' && ui_move_forward.length > 0) {
-			moveUIForward(ui_move_forward);	
+			moveUI(ui_move_forward);	
+		} else if (typeof ui_move_back !== 'undefined' && ui_move_back.length > 0) {
+			moveUI(ui_move_back, 'back');
 		} else {
             pressTile($element);
             goLive();
@@ -324,7 +347,7 @@ var tileHammerHandler = function(tileId, ev) {
 	var tiles = [];
 	tiles.push($tile);
 	tiles = $.merge(tiles, getMatchingSiblings($tile, $allTiles));
-	tiles = $.merge(tiles, getMatchingSiblings($tile, $('.tiles-wrap.nav.left .tile')));
+	tiles = $.merge(tiles, getMatchingSiblings($tile, $tile.closest('.ui').find('.tiles-wrap.nav.left .tile')));
 	//console.log(ev.type);
 
 	
