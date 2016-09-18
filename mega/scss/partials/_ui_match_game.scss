@@ -11,7 +11,33 @@
                 background-color: $color-black;
             }
         }
-    }	
+		&.flipped {
+			&.red {
+				.tile-inner-wrap {
+					background-color: $color-red;
+				}
+			}
+			&.yellow {
+				.tile-inner-wrap {
+					background-color: $color-yellow;
+				}
+			}
+			&.orange {
+				background-color: $color-yellow;
+				.tile-inner-wrap {
+					@include alpha-background-color(rgba($color-red, 0.51), $color-yellow);
+				}
+			}
+			&.blue {
+				.tile-inner-wrap {
+					background-color: $color-theme-blue;
+				}
+			}
+			.letter {
+				visibility: hidden;
+			}
+		}
+	}	
 }
 
 /*********************************

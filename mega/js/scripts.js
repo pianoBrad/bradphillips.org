@@ -179,15 +179,41 @@ function updateCurMenu(next_word) {
 
 function resetTiles($ui, timeOut) {
 	timeOut = timeOut || 500;
-	console.log($ui);
-	console.log($ui.closest('.tiles-wrap.nav'));
 	$ui.find('.tiles-wrap .tile').each(function() {
 		$(this).attr('style','');
-		console.log($(this));
 	});
 	
 	setTimeout(goLive, timeOut);
 }
+
+/** Match Game Functions **/	
+function startMatchGame() {
+	var colors = ['red','red','orange','orange','yellow','yellow','blue','blue'];
+
+	//Add colors to tiles
+	$('#ui-match .tiles-wrap').first().find('.tile:not(.center)').each(function() {
+		var color = colors[Math.floor(Math.random()*colors.length)];
+		$(this).attr('data-match-color',color);
+		colors.splice( $.inArray(color, colors), 1 );	
+	});
+}
+function revealMatchTile($tile) {
+	var color = $tile.data('matchColor');	
+
+	if (!$tile.hasClass('flipped'))	{
+		pressTile($tile);	
+
+		setTimeout(
+			function() {
+				$tile.addClass('flipped').addClass(color);
+				goLive();
+			}, 
+		150);
+	} else {
+		goLive();
+	}
+}
+/** Match Game Functions End **/
 
 function moveUI(ui_id, direction) {
 	direction = direction || 'forward'
@@ -206,6 +232,9 @@ function moveUI(ui_id, direction) {
 		default:
 			$mainMenu.addClass('inactive');
 			$selectedMenu.addClass('active');
+			if ($selectedMenu.attr('id') == 'ui-match') {
+				startMatchGame();
+			}
 			resetTiles($selectedMenu);
 			break;
 	}	
@@ -221,6 +250,7 @@ var uiNext = function($element) {
         var text_detail = $element.data('textDetail');
 		var ui_move_forward = $element.data('uiMoveForward');
 		var ui_move_back = $element.data('uiMoveBack');
+		var match_color = $element.data('matchColor');
 
 		if (typeof next_word !== 'undefined' && next_word.length > 0 && curMenu != next_word) {
             updateTilesWord($element, next_word);
@@ -231,6 +261,8 @@ var uiNext = function($element) {
 			moveUI(ui_move_forward);	
 		} else if (typeof ui_move_back !== 'undefined' && ui_move_back.length > 0) {
 			moveUI(ui_move_back, 'back');
+		} else if (typeof match_color !== 'undefined' && match_color.length > 0) {
+			revealMatchTile($element);
 		} else {
             pressTile($element);
             goLive();
