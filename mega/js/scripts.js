@@ -222,15 +222,18 @@ function moveUI(ui_id, direction) {
 
     var $mainMenu = $('.ui-menu');
     var $selectedMenu = $(ui_id);
+	var $bodyWrap = $('.body-wrap');
 
 	switch(direction) {
 		case 'back': 
 			$mainMenu.removeClass('inactive');
+			$bodyWrap.removeClass('inactive');
 			$selectedMenu.removeClass('active');
 			resetTiles($mainMenu);
 			break;
 		default:
 			$mainMenu.addClass('inactive');
+			$bodyWrap.addClass('inactive');
 			$selectedMenu.addClass('active');
 			if ($selectedMenu.attr('id') == 'ui-match') {
 				startMatchGame();
@@ -413,7 +416,6 @@ var tileHammerHandler = function(tileId, ev) {
 
 
 var setUpHammerListeners = function($selector) {
-
 	$selector.each(function() {
 		var tileId = $(this).attr('id');
 
@@ -430,6 +432,7 @@ var setUpHammerListeners = function($selector) {
 		// listen to events...
 		mc.on("panstart panleft panright panup pandown panend pancancel", function(ev) {
 			//myElement.textContent = ev.type +" gesture detected.";
+			console.log('hammer move');
 			if(ev.type == "panend" || ev.type == "panstart") {
 
 				tileOffsetStartX = $(ev.target).closest('.tiles').find('.tile').first().css('left').replace('px','');
@@ -463,6 +466,18 @@ function addEventListeners() {
 	$(window).resize(function() {
 		addWaves();
 	});
+
+	//Kill doublt-tap zoom on iOS devices
+	if (Modernizr.touch) {
+		var doubleTouchStartTimestamp = 0;
+		document.addEventListener("touchstart", function (event) {
+			var now = +(new Date());
+			if (doubleTouchStartTimestamp + 500 > now) {
+				event.preventDefault();
+			}
+			doubleTouchStartTimestamp = now;
+		});
+	}
 
 	$('html').on('click', '.tile, .text-detail', function(e) {
 		var $element = $(e.target);
