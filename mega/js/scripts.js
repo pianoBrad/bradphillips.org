@@ -12,10 +12,13 @@ var cur_flipped = '';
 var curMenu = 'home';
 
 function typeIt($selector, phrases) {
+	var $parent = $($selector.parent());
+	$selector.remove();
+	$parent.prepend($selector);
 	$selector.typed({
 		strings: phrases,
         contentType: 'html', //to do html, set to 'text' if only strings
-		typeSpeed: 0
+		typeSpeed: 0,
     });
 }
 
@@ -220,7 +223,8 @@ function flipTile($tile, color, game_status) {
 			if (game_status == '') {
 				goLive();
 			} else if (game_status == 'win') {
-				console.log('win!');		
+				console.log('win!');
+				typeIt($('#hud-message'), ["winner, chicken dinner!"]);
 			} else {
 				hideFlippedTiles([cur_flipped, $tile]);
 			}
