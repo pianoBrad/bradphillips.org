@@ -4,6 +4,11 @@ var numCols = 3;
 var curPercentOffset = 0;
 var globalThreshold = (100/2);
 
+/** Match Game Variables **/
+var match_colors = [];
+var total_matches = 0;
+var cur_flipped = '';
+
 var curMenu = 'home';
 
 function typeIt($selector, phrases) {
@@ -188,27 +193,80 @@ function resetTiles($ui, timeOut) {
 
 /** Match Game Functions **/	
 function startMatchGame() {
-	var colors = ['red','red','orange','orange','yellow','yellow','blue','blue'];
+	match_colors = ['red','red','orange','orange','yellow','yellow','blue','blue'];
+	cur_flipped = '';
+	total_matches = 0;
 
 	//Add colors to tiles
 	$('#ui-match .tiles-wrap').first().find('.tile:not(.center)').each(function() {
-		var color = colors[Math.floor(Math.random()*colors.length)];
-		$(this).attr('data-match-color',color);
-		colors.splice( $.inArray(color, colors), 1 );	
+		$(this).attr('data-match-color','');
 	});
 }
+function checkForMatch($tile_1, $tile_2) {
+	var tile_1_color = $tile_1.attr('data-match-color');
+	var tile_2_color = $tile_2.attr('data-match-color');
+	
+	if (tile_1_color == tile_2_color) {
+		return 'true';
+	} else {
+		return 'false';
+	}
+}
+function flipTile($tile, color, game_status) {
+	game_status = game_status || '';
+	setTimeout(
+        function() {
+            $tile.addClass('flipped').addClass(color);
+			if (game_status == '') {
+				goLive();
+			} else if (game_status == 'win') {
+				console.log('win!');		
+			} else {
+				hideFlippedTiles([cur_flipped, $tile]);
+			}
+        },
+    150);
+}
+function hideFlippedTiles(tiles) {
+	setTimeout(
+		function() {
+			cur_flipped = '';
+			$(tiles).each(function() {
+				$(this).removeClass('flipped');
+				$(this).removeClass('red orange yellow blue');
+			});
+			goLive();
+		},
+	500);
+}
 function revealMatchTile($tile) {
-	var color = $tile.data('matchColor');	
+	var color = $tile.attr('data-match-color');
+	if ($tile.attr('data-match-color').length < 1) {
+		color = match_colors[Math.floor(Math.random()*match_colors.length)];
+		$tile.attr('data-match-color', color);
+		match_colors.splice( $.inArray(color, match_colors), 1 );
+	}
 
 	if (!$tile.hasClass('flipped'))	{
-		pressTile($tile);	
+		if (cur_flipped.length < 1) {
+			cur_flipped = $tile;
+			pressTile($tile);	
 
-		setTimeout(
-			function() {
-				$tile.addClass('flipped').addClass(color);
-				goLive();
-			}, 
-		150);
+			flipTile($tile, color);
+		} else {
+			var match = checkForMatch(cur_flipped, $tile);
+			if (match == 'true') {
+				if (total_matches < 3) {
+					total_matches++;	
+					cur_flipped = '';	
+					flipTile($tile, color);
+				} else {
+					flipTile($tile, color, 'win');
+				}	
+			} else {
+				flipTile($tile, color, 'hide')
+			}
+		}
 	} else {
 		goLive();
 	}
@@ -264,7 +322,7 @@ var uiNext = function($element) {
 			moveUI(ui_move_forward);	
 		} else if (typeof ui_move_back !== 'undefined' && ui_move_back.length > 0) {
 			moveUI(ui_move_back, 'back');
-		} else if (typeof match_color !== 'undefined' && match_color.length > 0) {
+		} else if (typeof match_color !== 'undefined') {
 			revealMatchTile($element);
 		} else {
             pressTile($element);

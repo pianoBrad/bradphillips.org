@@ -4,6 +4,9 @@
 	display: block;
 	width: 100%;
 	color: $color-white;
+	position: fixed;
+	top: 0; 
+	left: 0;
 	#hud-message {
 		font-size: 1.5rem;
 		line-height: $height-header;
