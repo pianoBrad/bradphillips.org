@@ -319,6 +319,24 @@ function moveUI(ui_id, direction) {
 
 }
 
+function resetUI(ui_id, word) {
+	var $uiMenu = $(ui_id);
+
+	stopLive('ui-resetting');
+
+	$uiMenu.find('.tiles li').each(function() {
+		$(this).attr('style','');
+	});
+
+	if ( curMenu != word ) {
+		updateTilesWord($uiMenu.find('li').first(), word);
+		updateCurMenu(word);
+	} else {
+		goLive();
+	}
+		
+}
+
 var uiNext = function($element) {
 	
 	if ($element.hasClass('tile')) {
@@ -329,6 +347,8 @@ var uiNext = function($element) {
 		var ui_move_forward = $element.data('uiMoveForward');
 		var ui_move_back = $element.data('uiMoveBack');
 		var match_color = $element.data('matchColor');
+		var ui_reset = $element.data('uiReset');
+		var ui_target = $element.data('uiTarget');
 
 		if (typeof next_word !== 'undefined' && next_word.length > 0 && curMenu != next_word) {
             updateTilesWord($element, next_word);
@@ -339,6 +359,8 @@ var uiNext = function($element) {
 			moveUI(ui_move_forward);	
 		} else if (typeof ui_move_back !== 'undefined' && ui_move_back.length > 0) {
 			moveUI(ui_move_back, 'back');
+		} else if (typeof ui_reset !== 'undefined' && ui_reset.length > 0 && ui_target.length > 0) {
+			resetUI(ui_target, ui_reset);
 		} else if (typeof match_color !== 'undefined') {
 			revealMatchTile($element);
 		} else {
