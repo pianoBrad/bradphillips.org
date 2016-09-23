@@ -20,6 +20,7 @@ $tile-font-size-sm: 7.5rem;
 			}
 		}
 		.tile {
+			touch-action: manipulation;
 			font-family: $font-mega-thin-caps;
 			position: relative;
 			height: 33.333%;
