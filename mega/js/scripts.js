@@ -289,24 +289,27 @@ function revealMatchTile($tile) {
 
 function moveUI(ui_id, direction) {
 	direction = direction || 'forward'
+	var bodyClass = 'ui-moving-'+direction;
 
-	stopLive('ui-moving-back');
+	stopLive(bodyClass);
 
     var $mainMenu = $('.ui-menu');
     var $selectedMenu = $(ui_id);
 	var $bodyWrap = $('.body-wrap');
 
+	$('.ui').removeClass('moving');
+
 	switch(direction) {
 		case 'back': 
 			$mainMenu.removeClass('inactive');
 			$bodyWrap.removeClass('inactive');
-			$selectedMenu.removeClass('active');
+			$selectedMenu.removeClass('active').addClass("moving");
 			resetTiles($mainMenu);
 			break;
 		default:
 			$mainMenu.addClass('inactive');
 			$bodyWrap.addClass('inactive');
-			$selectedMenu.addClass('active');
+			$selectedMenu.addClass('active moving');
 			if ($selectedMenu.attr('id') == 'ui-match') {
 				startMatchGame();
 			}
