@@ -42,7 +42,7 @@ var changeTheme = function($element) {
 
 var clickOrTouch = function() {
 	if (Modernizr.touch) {
-		return "touchstart";
+		return "touchend";
 	} else {
 		return "click";
 	} 
@@ -576,7 +576,7 @@ function addEventListeners() {
 		});
 	}
 
-	$('html').on('click', '.tile, .text-detail', function(e) {
+	$('html').on(clickOrTouch(), '.tile, .text-detail', function(e) {
 		var $element = $(e.target);
 
 		if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
