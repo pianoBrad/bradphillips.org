@@ -527,7 +527,7 @@ var setUpHammerListeners = function($selector) {
 		mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 
 		// listen to events...
-		mc.on("tap panstart panleft panright panup pandown panend pancancel", function(ev) {
+		mc.on("panstart panleft panright panup pandown panend pancancel", function(ev) {
 			//myElement.textContent = ev.type +" gesture detected.";
 			var $element = $(ev.target);
 			if($element.closest('nav').length < 1 && (ev.type == "panend" || ev.type == "panstart")) {
@@ -536,6 +536,7 @@ var setUpHammerListeners = function($selector) {
 				tileOffsetStartY = $(ev.target).closest('.tiles').find('.tile').first().css('top').replace('px','');
 			
 			} else if (ev.type == "tap") {
+				/**
 				var $element = $(ev.target);
 
 				if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
@@ -544,7 +545,8 @@ var setUpHammerListeners = function($selector) {
 					if ($element.closest('.showing').length < 1 && $element.closest('.wave-container').length < 1) {
 						hideTextDetail();
 					}
-				}	
+				}
+				**/	
 			}
 			tileHammerHandler(tileId, ev);
 		});
@@ -586,9 +588,7 @@ function addEventListeners() {
 		});
 	}
 
-	/**
-	if (!Modernizr.touch) {
-	$('html').on('click', '.tile, .text-detail', function(e) {
+	$('html').on('tap', '.tile, .text-detail', function(e) {
 		var $element = $(e.target);
 
 		if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
@@ -600,11 +600,8 @@ function addEventListeners() {
         } 
 	
 	});
-	}
-	**/
 
-	//setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
-	setUpHammerListeners($('.tile'));
+	setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
 
 }
 
