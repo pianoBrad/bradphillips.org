@@ -1,0 +1,35 @@
+.ui-team {
+    position: absolute;
+    right: -100%;
+    top: $height-header;
+	.tile {
+		.tile-inner-wrap {
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: auto 50%;
+		}
+		&.barn {
+			.tile-inner-wrap { 
+				background-image: url("../img/sprites/barn-sprite-1.png");
+			}
+		}
+		&.brad {
+			.tile-inner-wrap {
+				background-image: url("../img/sprites/brad-sprite-1.png");
+			}
+		}
+		&.holly {
+			.tile-inner-wrap {
+				background-image: url("../img/sprites/holly-sprite-1.png");
+			}
+		}
+	}
+}
+
+/*********************************
+        MEDIA QUERIES
+*********************************/
+
+@media (min-width: $breakpoint-md) {
+
+}

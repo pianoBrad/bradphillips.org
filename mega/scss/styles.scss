@@ -99,6 +99,28 @@ section[class^="ui-"] {
 	top: $height-header;
 	&.inactive {
     }
+	.tile {
+		opacity: 1;
+	}
+}
+.intro {
+	.ui-menu {
+		.tile {
+			opacity: 0;
+		}
+	}
+}
+.live, .ui-updating {
+	.ui-menu {
+		.tile {
+			opacity: 1;
+			@for $item from 1 through 9 {
+				&:nth-child(#{$item}) {
+					@include transition(opacity #{0.5 * $item}s);
+				}
+			}
+		}
+	}
 }
 
 

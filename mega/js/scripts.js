@@ -182,6 +182,16 @@ function updateCurMenu(next_word) {
 				$tile.attr('data-ui-move-forward','#ui-match');
 			}
 		}
+	} else if (curMenu.indexOf("OUT") >= 0) {
+		//We're on about us tiles, let's set up back/forward buttons
+		for (var i = 0, len = next_word.length; i < len; i++) {
+			if (next_word[i] == 'r') {
+				var $tile = $($('.ui-menu .tile').get(i));
+				$tile.attr('data-next-word', '');
+                $tile.attr('data-text-detail', '');
+                $tile.attr('data-ui-move-forward','#ui-team');
+			}
+		}
 	} 
 }
 
@@ -566,6 +576,8 @@ addWaves();
 
 addEventListeners();
 
-typeIt($('#hud-message'), ["hello!"]);
+setTimeout(function() {
+	typeIt($('#hud-message'), ["hello!"]);
+	}, 1500);
 
 });

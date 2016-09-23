@@ -9,7 +9,11 @@
         &.center {
             .tile-inner-wrap {
                 background-color: $color-black;
-            }
+				background-image: url('../img/animations/shark-gif-1.gif');
+				background-repeat: no-repeat;
+				background-size: auto 100%;
+				background-position: center center;
+			}
         }
 		&.flipped {
 			&.red {
