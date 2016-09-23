@@ -527,15 +527,25 @@ var setUpHammerListeners = function($selector) {
 		mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 
 		// listen to events...
-		mc.on("panstart panleft panright panup pandown panend pancancel", function(ev) {
+		mc.on("tap panstart panleft panright panup pandown panend pancancel", function(ev) {
 			//myElement.textContent = ev.type +" gesture detected.";
-			console.log('hammer move');
-			if(ev.type == "panend" || ev.type == "panstart") {
+			var $element = $(ev.target);
+			if($element.closest('nav').length < 1 && (ev.type == "panend" || ev.type == "panstart")) {
 
 				tileOffsetStartX = $(ev.target).closest('.tiles').find('.tile').first().css('left').replace('px','');
 				tileOffsetStartY = $(ev.target).closest('.tiles').find('.tile').first().css('top').replace('px','');
 			
-			} 	
+			} else if (ev.type == "tap") {
+				var $element = $(ev.target);
+
+				if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
+					uiNext($element.closest('.tile'));
+				} else if ($element.closest('.text-detail').length > 0 && $element.closest('.megalodon').length < 1 && $element.closest('.ui-text-detail').length > 0) {
+					if ($element.closest('.showing').length < 1 && $element.closest('.wave-container').length < 1) {
+						hideTextDetail();
+					}
+				}	
+			}
 			tileHammerHandler(tileId, ev);
 		});
 		hammerInstances.push(mc);
@@ -576,7 +586,9 @@ function addEventListeners() {
 		});
 	}
 
-	$('html').on(clickOrTouch(), '.tile, .text-detail', function(e) {
+	/**
+	if (!Modernizr.touch) {
+	$('html').on('click', '.tile, .text-detail', function(e) {
 		var $element = $(e.target);
 
 		if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
@@ -585,12 +597,15 @@ function addEventListeners() {
             if ($element.closest('.showing').length < 1 && $element.closest('.wave-container').length < 1) {
                 hideTextDetail();
             }
-        } else {
-		}
+        } 
 	
 	});
+	}
+	**/
 
-	setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
+	//setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
+	setUpHammerListeners($('.tile'));
+
 }
 
 $( document ).ready(function() {
