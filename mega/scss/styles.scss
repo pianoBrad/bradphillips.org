@@ -116,7 +116,7 @@ section[class^="ui-"] {
 			opacity: 1;
 			@for $item from 1 through 9 {
 				&:nth-child(#{$item}) {
-					@include transition(opacity #{0.5 * $item}s);
+					@include transition(opacity #{0.25 * $item}s);
 				}
 			}
 		}

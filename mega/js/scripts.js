@@ -466,11 +466,11 @@ var tileHammerHandler = function(tileId, ev) {
 	stopLive('ui-sliding');	
 
 	$tile = $('#'+tileId);	
-	
+
 	var tileW = $tile.outerWidth();
 	var delta = dirProp(ev.direction, ev.deltaX, ev.deltaY);
     //var percent = ((100 / tileW) * delta) / numCols;
-    var percent = ((100 / tileW) * delta);
+    var percent = ((100 / tileW) * delta) + tileOffsetStartX;
 	var animate = false;
 
 	//console.log(percent);
@@ -527,16 +527,22 @@ var setUpHammerListeners = function($selector) {
 		mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 
 		// listen to events...
-		mc.on("panstart panleft panright panup pandown panend pancancel", function(ev) {
+		mc.on("tap panstart panleft panright panup pandown panend pancancel", function(ev) {
 			//myElement.textContent = ev.type +" gesture detected.";
 			var $element = $(ev.target);
-			if($element.closest('nav').length < 1 && (ev.type == "panend" || ev.type == "panstart")) {
+			var is_nav = ($element.closest('.nav').length > 0) ? true : false;
 
-				tileOffsetStartX = $(ev.target).closest('.tiles').find('.tile').first().css('left').replace('px','');
-				tileOffsetStartY = $(ev.target).closest('.tiles').find('.tile').first().css('top').replace('px','');
+            if(ev.type == "panstart") {
+                var curTranslateX = $(ev.target).closest('.tile').css('transform').split(',')[4];
+                tileOffsetStartX = 0;
+
+                if (curTranslateX > 0) {
+                    tileOffsetStartX = 100;   
+                } else if (curTranslateX < 0) {
+                    tileOffsetStartX = -100;    
+                }
 			
 			} else if (ev.type == "tap") {
-				/**
 				var $element = $(ev.target);
 
 				if ($element.closest('.tile').length > 0 && $element.closest('.live').length > 0) {
@@ -546,9 +552,11 @@ var setUpHammerListeners = function($selector) {
 						hideTextDetail();
 					}
 				}
-				**/	
 			}
-			tileHammerHandler(tileId, ev);
+            // Handle the action
+			if (!is_nav) {
+                tileHammerHandler(tileId, ev);
+            }
 		});
 		hammerInstances.push(mc);
 	});
@@ -576,7 +584,7 @@ function addEventListeners() {
 		addWaves();
 	});
 
-	//Kill doublt-tap zoom on iOS devices
+	//Kill double-tap zoom on iOS devices
 	if (Modernizr.touch) {
 		var doubleTouchStartTimestamp = 0;
 		document.addEventListener("touchstart", function (event) {
@@ -588,6 +596,7 @@ function addEventListeners() {
 		});
 	}
 
+    /**
 	$('html').on('tap', '.tile, .text-detail', function(e) {
 		var $element = $(e.target);
 
@@ -600,8 +609,9 @@ function addEventListeners() {
         } 
 	
 	});
+    **/
 
-	setUpHammerListeners($('.ui .tiles-wrap:not(.nav) .tile'));
+	setUpHammerListeners($('.ui .tiles-wrap .tile'));
 
 }
 
