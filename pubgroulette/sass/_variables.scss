@@ -1,0 +1,55 @@
+// Site Colors
+
+$white: #FFFFFF;
+$white-transparent: rgba(255, 255, 255, 0.1);
+
+$black: #000000;
+$black-transparent: rgba(0,0,0,0.85);
+$dark: rgba(10,10,10,1);
+$dark-grey: #232323;
+$dark-grey-transparent: rgba(35,35,35,0.9);
+
+$dark-gold: rgba(201,107,15,1);
+$gold: rgba(242,172,32,1);
+$yellow: rgba(255,222,31,1);
+
+// Fonts
+$teko: 'Teko', sans-serif;
+$font-awesome: 'FontAwesome';
+$material: 'Material-Design-Iconic-Font';
+
+$font-size: 16;
+$line-height: 1.3em;
+$side-spacing: 30px;
+
+$font-size-h1: 60;
+$font-size-header-base: $font-size + 4;
+$font-size-btn: $font-size + 4;
+
+$font-weight-thin: 100;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+$font-weight-black: 900;
+
+// Spacing
+$spacing-x-base: 15;
+$spacing-y-base: 15;
+$spacing-x-sm: $spacing-x-base - 5;
+$spacing-y-sm: $spacing-y-base - 5;
+$spacing-x-xs: $spacing-x-sm - 5;
+$spacing-y-xs: $spacing-y-sm - 5;
+$spacing-x-lg: $spacing-x-base + 5;
+$spacing-y-lg: $spacing-y-base + 5;
+$side-spacing: #{$spacing-x-base * 2}px;
+$spacing-y-section: 45;
+$spacing-y-section-sm: 90;
+
+// Transitions
+$transition-time-base: 0.2s;
+
+// Shadows
+$box-shadow-base: 0 2px 1px 0px rgba(0,0,0,0.5);

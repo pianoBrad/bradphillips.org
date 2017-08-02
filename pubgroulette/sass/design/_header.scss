@@ -1,0 +1,45 @@
+html {
+  .header-wrap {
+    @include bg-dark();
+    @include rem-fallback(font-size, $font-size-header-base);
+    @include rem-fallback(padding-top, $spacing-y-base);
+    @include rem-fallback(padding-bottom, $spacing-y-base); 
+ 
+    color: $yellow; 
+    font-family: $teko;
+    h4 {
+      @include bg-yellow();
+      @include box-shadow($box-shadow-base);
+      @include rem-fallback(padding, $spacing-y-sm - 5);
+      @include rem-fallback(padding-left, $spacing-x-base);
+      @include rem-fallback(padding-right, $spacing-x-base);
+      color: $dark;
+      display: inline-block;
+    }
+    h1 {
+      @include gradient-text-yellow();
+      margin-top: 0; 
+      @include bp-sm {
+        @include rem-fallback(font-size, $font-size-h1 + 30);
+      }
+    }
+    
+    .header-content-wrap {
+      @include bp-sm {
+        text-align: center;
+      }
+      > .row {
+        &:first-child {
+          text-align: center;
+        }
+      }
+      .checkbox {
+        @include bp-sm {
+          @include rem-fallback(margin-left, $spacing-x-sm);
+          @include rem-fallback(margin-right, $spacing-x-sm);
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
